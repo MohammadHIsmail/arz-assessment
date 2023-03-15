@@ -1,0 +1,41 @@
+.tier-buttons-container{
+    justify-content: space-between;
+}
+
+@media (max-width: 768px){
+    .tier-buttons{
+        width:10%;
+    }
+    .stats-switch{
+        flex-wrap: nowrap !important;
+    }
+    .stats-switch-container{
+        width: 100% !important;
+    }
+    /* .btn-sm{
+        padding: 0!important;
+    } */
+    .tier-button{
+        padding: 5px 13px !important;
+    }
+    .war-table-title{
+        width: 100% !important;
+    }
+
+}
+
+@media (max-width: 480px){
+    .tier-buttons{
+        width: 30% !important;
+        text-align: center;
+    }
+    .tier-buttons-container{
+        flex-wrap: wrap !important;
+    }
+    .tier-button{
+        padding: 5px 5px !important;
+        font-size: 0.7rem !important;
+        width: 100%;
+        margin-top: 10px;    
+    }
+}
