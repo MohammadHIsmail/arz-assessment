@@ -2,9 +2,6 @@
     <div class="page-header section-height-75">
         <div class="container">
             <div class="row d-flex align-items-center mt-5 ml-0 justify-content-between">
-                <div class="col-xl-4 col-lg-5 col-md-6 d-flex justify-content-center">
-                    <img src="{{asset('assets/img/logo.png')}}" />
-                </div>
                 <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                     <div class="card card-plain">
                         <div class="card-body">

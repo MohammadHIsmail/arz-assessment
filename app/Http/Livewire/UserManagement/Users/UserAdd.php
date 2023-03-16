@@ -5,6 +5,7 @@ namespace App\Http\Livewire\UserManagement\Users;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use App\Models\Department;
 use Hash;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -15,7 +16,15 @@ class UserAdd extends Component
     public $roles;
     public $selectedrole;
 
-    public $userId;
+    public $genders;
+    public $selectedgender;
+
+    public $departments;
+    public $selecteddep;
+
+    public $email;
+    public $name;
+    public $phone;
     public $password;
     public $password_confirmation;
 
@@ -24,21 +33,33 @@ class UserAdd extends Component
 
         $this->authorize('user-add');
 
+        $this->genders =[1=>'Male',2=>'Female'];
+
         $this->roles = Role::pluck('name','id')->all();
+
+        $this->departments = Department::pluck('name','id')->all();
         
     }
 
     public function store()
     {
         $validatedData = $this->validate([
-            'userId' => 'required|unique:users',
+            'email' => 'required|unique:users',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'required|required_with:password|same:password',
+            'name' => 'required',
+            'phone' => 'required',
+            'selectedgender' => 'required',
             'selectedrole' => 'required',
+            'selecteddep' => 'required',
         ]);
 
         $user = new User();
-        $user->userId = $validatedData['userId'];
+        $user->email = $validatedData['email'];
+        $user->name = $validatedData['name'];
+        $user->phone = $validatedData['phone'];
+        $user->gender = $validatedData['selectedgender'];
+        $user->department_id = $validatedData['selecteddep'];
         $user->password = Hash::make($validatedData['password']);
         $user->save();
 

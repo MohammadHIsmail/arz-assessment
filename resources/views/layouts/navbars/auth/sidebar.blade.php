@@ -1,4 +1,4 @@
-@can('leader-war')
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-2 fixed-start"
     id="sidenav-main">
     <div class="sidenav-header">
@@ -97,7 +97,19 @@
                 </a>
             </li>
             @endcan
+        @can('department-list')
+            <li class="nav-item pb-2">
+                <a class="nav-link {{ Route::currentRouteName() == 'departments' ? 'active' : '' }}"
+                    href="{{ route('departments') }}">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center
+                        {{ in_array(request()->route()->getName(),['departments']) ? 'text-white' : 'text-dark' }}"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Departments</span>
+                </a>
+            </li>
+            @endcan
         </ul>
     </div>
 </aside>
-@endcan

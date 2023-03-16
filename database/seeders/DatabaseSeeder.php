@@ -18,6 +18,5 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionTableSeeder::class);
         $this->call(CreateAdminSeeder::class);
-        $this->call(GuestPasswordSeeder::class);
     }
 }

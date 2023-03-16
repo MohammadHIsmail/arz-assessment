@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('audit_trails', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('performed_by')->nullable()->constrained('users');
             $table->string('changed_table');
             $table->string('changed_field');
             $table->string('previous_data');
             $table->string('new_data');
             $table->string('operation');
-            $table->foreignId('performed_by')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

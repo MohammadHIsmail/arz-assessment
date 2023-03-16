@@ -23,12 +23,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="userId" class="form-control-label">{{ __('User ID') }}</label>
-                                <div class="@error('userId')border border-danger rounded-3 @enderror">
-                                    <input wire:model="userId" class="form-control" type="number" placeholder="User ID"
-                                        id="userId">
+                                <label for="role">{{ 'Department' }}</label>
+                                <div class="@error('selecteddep')border border-danger rounded-3 @enderror">
+                                    <select wire:model="selecteddep" class="form-select" aria-label="Default select example">
+                                        <option selected value="">select an option</option>
+                                        @foreach($departments as $key => $d)
+                                        <option value="{{ $key }}">{{$d}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                @error('userId') <div class="text-danger">{{ $message }}</div> @enderror
+                                @error('selecteddep') <div class="text-danger">The role field is required.</div> @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -36,13 +40,35 @@
                                 <label for="role">{{ 'Role' }}</label>
                                 <div class="@error('selectedrole')border border-danger rounded-3 @enderror">
                                     <select wire:model="selectedrole" class="form-select" aria-label="Default select example">
-                                        <option selected>select an option</option>
+                                        <option selected value="">select an option</option>
                                         @foreach($roles as $key => $r)
                                         <option value="{{ $key }}">{{$r}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 @error('selectedrole') <div class="text-danger">The role field is required.</div> @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="form-control-label">{{ __('Name') }}</label>
+                                <div class="@error('name')border border-danger rounded-3 @enderror">
+                                    <input wire:model="name" class="form-control" type="text"
+                                        id="name">
+                                </div>
+                                @error('name') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phone" class="form-control-label">{{ __('Phone') }}</label>
+                                <div class="@error('phone')border border-danger rounded-3 @enderror">
+                                    <input wire:model="phone" class="form-control" type="text"
+                                        id="phone">
+                                </div>
+                                @error('phone') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
                     </div>
@@ -65,6 +91,32 @@
                                         id="password_confirmation">
                                 </div>
                                 @error('password_confirmation') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="form-control-label">{{ __('Email') }}</label>
+                                <div class="@error('email')border border-danger rounded-3 @enderror">
+                                    <input wire:model="email" class="form-control" type="email"
+                                        id="email">
+                                </div>
+                                @error('email') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="selectedgender" class="form-control-label">{{ __('Gender') }}</label>
+                                <div class="@error('selectedgender')border border-danger rounded-3 @enderror">
+                                    <select wire:model="selectedgender" class="form-select" aria-label="Default select example">
+                                        <option selected value="">select an option</option>
+                                        @foreach($genders as $key => $d)
+                                        <option value="{{ $key }}">{{$d}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('selectedgender') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                         </div>
                     </div>

@@ -18,7 +18,7 @@ class Login extends Component
         }
     }
 
-    public function login($userType) {
+    public function login() {
 
         $validatedData = $this->validate([
             'email' => 'required',
