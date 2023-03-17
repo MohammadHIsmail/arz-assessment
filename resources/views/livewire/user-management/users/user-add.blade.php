@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="role">{{ 'Department' }}</label>
+                                <label for="selecteddep">{{ 'Department' }}</label>
                                 <div class="@error('selecteddep')border border-danger rounded-3 @enderror">
                                     <select wire:model="selecteddep" class="form-select" aria-label="Default select example">
                                         <option selected value="">select an option</option>

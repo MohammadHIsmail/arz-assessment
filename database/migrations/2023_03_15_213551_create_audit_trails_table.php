@@ -17,9 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('performed_by')->nullable()->constrained('users');
             $table->string('changed_table');
-            $table->string('changed_field');
-            $table->string('previous_data');
-            $table->string('new_data');
+            $table->string('changes')->nullable();
             $table->string('operation');
             $table->timestamps();
         });

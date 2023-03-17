@@ -40,6 +40,7 @@
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
+            @can('user-profile')
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'user-profile' ? 'active' : '' }}"
                     href="{{ route('user-profile') }}">
@@ -71,6 +72,20 @@
                     <span class="nav-link-text ms-1">User Profile</span>
                 </a>
             </li>
+            @endcan
+            @can('audit-trail')
+            <li class="nav-item pb-2">
+                <a class="nav-link {{ Route::currentRouteName() == 'audit-trail' ? 'active' : '' }}"
+                    href="{{ route('audit-trail') }}">
+                    <div
+                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center
+                        {{ in_array(request()->route()->getName(),['audit-trail']) ? 'text-white' : 'text-dark' }}"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Audit Trail</span>
+                </a>
+            </li>
+            @endcan
             @can('role-list')
             <li class="nav-item pb-2">
                 <a class="nav-link {{ Route::currentRouteName() == 'users' ? 'active' : '' }}"
