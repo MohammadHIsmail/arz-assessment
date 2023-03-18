@@ -10,7 +10,7 @@ use App\Http\Livewire\UserManagement\Roles\RoleView;
 use App\Http\Livewire\UserManagement\Roles\RoleAdd;
 use App\Http\Livewire\UserManagement\Roles\RoleEdit;
 
-use App\Http\Livewire\UserManagement\AuditTrail;
+use App\Http\Livewire\UserManagement\AuditTrails;
 
 use App\Http\Livewire\DepManagement\DepView;
 use App\Http\Livewire\DepManagement\DepAdd;
@@ -49,7 +49,7 @@ Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-passwo
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/profile', Profile::class)->name('profile');
-    Route::get('/audit-trail', AuditTrail::class)->name('audit-trail');
+    Route::get('/audit-trail', AuditTrails::class)->name('audit-trail');
     Route::get('/laravel-user-profile', UserProfile::class)->name('user-profile');
     Route::get('/laravel-user-management', UserManagement::class)->name('user-management');
     /*

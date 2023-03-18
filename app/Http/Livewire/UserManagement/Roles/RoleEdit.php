@@ -7,6 +7,7 @@ use DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class RoleEdit extends Component
 {
@@ -17,7 +18,6 @@ class RoleEdit extends Component
     public $permission;
     public $rolePermissions;
     public $selectAll = false;
-    // public $notBooted = true;
 
     public $selectedPermission = [];
     public $filtererdPermissions = [];
@@ -27,9 +27,6 @@ class RoleEdit extends Component
         'name' => 'required|unique:roles,name',
         'selectedPermission' => 'array'
     ];
-    // protected $listeners = [
-    //     'cardLoaded',
-    // ];
 
 
     public function mount($id) 
@@ -73,11 +70,6 @@ class RoleEdit extends Component
         
     }
 
-    // public function cardLoaded($isBooted)
-    // {
-    //     $this->notBooted = $isBooted;
-    // }
-
     public function selectAllPermissions()
     {
         $this->selectAll = !$this->selectAll;
@@ -99,26 +91,44 @@ class RoleEdit extends Component
             'selectedPermission' => 'required'
         ]);
 
+        $oldData = [];
+        $oldData['role'] = $this->role->name;
+        $newData = [];
+        $newData['role'] = $validatedData['name'];
+
  
         foreach( $this->rolePermissions as $key => $permission)
         {
-            if($permission != false)
+            if($permission)
             {
-                $perm = permission::find($permission)->name;
-            }
-        }
-
-        foreach($validatedData['selectedPermission'] as $key => $permission)
-        {
-            if($permission != false)
-            {
-                $perm = permission::find($permission)->name;
+                $p = Permission::find($permission)->name;
+                $oldData[$key] =  $p;
             }
             else
             {
-                unset($validatedData['selectedPermission'][$key]); 
+                $oldData[$key] = '';
             }
         }
+        
+        foreach($validatedData['selectedPermission'] as $key => $permission)
+        {
+            if($permission)
+            {
+                $p = Permission::find($key)->name;
+                $newData[$key] =  $p;
+                if(!isset($oldData[$key])){
+
+                    $oldData[$key] = '';
+                }
+            }
+            else
+            {
+                unset($validatedData['selectedPermission'][$key]);
+                $newData[$key] = '';    
+            }
+        }
+
+        AuditService::AuditLog($oldData,$newData,auth()->user()->id,'role','edit');
 
         $this->role->name = $validatedData['name'];
         $this->role->save();

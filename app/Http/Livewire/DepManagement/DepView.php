@@ -5,6 +5,7 @@ namespace App\Http\Livewire\DepManagement;
 use Livewire\Component;
 use App\Models\Department;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class DepView extends Component
 {
@@ -20,11 +21,19 @@ class DepView extends Component
     { 
         $this->authorize('department-list');
 
-        $this->departments = Department::orderBy('id', 'desc')->get();
+        $this->departments = Department::orderBy('id', 'asc')->get();
     }
 
     public function destroy($id)
     {
+        $oldData=[];
+        $oldData['department']=Department::where('id', $id)->first()->name;
+
+        $newData=[];
+        $newData['department']='';
+
+        AuditService::AuditLog($oldData,$newData,auth()->user()->id,'department','delete');
+
         Department::where('id', $id)->delete();
 
         return redirect()->route('departments')

@@ -25,11 +25,14 @@
                         <table id="dtable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         ID
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        role
+                                        Email
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Role
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Creation Date
@@ -42,8 +45,11 @@
                             <tbody>
                                 @foreach ($user as $key => $u)
                                     <tr>
-                                        <td class="ps-4">
+                                        <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">{{ $u->id }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ $u->email }}</p>
                                         </td>
                                         <td class="text-center">
                                         @if(!empty($u->getRoleNames()))
@@ -57,9 +63,6 @@
                                         </td>
                                         <td class="text-center">
                                             @if($u->id != 1)
-                                                    <a class="cursor-pointer ml-3" wire:click="getSelectedUser({{ $u->id }})" data-toggle="modal" data-target="#viewuserModal">
-                                                        <i class="fas fa-eye text-secondary"></i>
-                                                    </a>
                                                 @can('user-edit')
                                                     <a href="{{ route('edit-user',$u->id) }}" class="cursor-pointer mx-3" data-bs-toggle="tooltip"
                                                         data-bs-original-title="Edit user">

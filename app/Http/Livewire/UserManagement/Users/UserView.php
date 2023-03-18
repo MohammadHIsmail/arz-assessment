@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class UserView extends Component
 {
@@ -22,7 +23,7 @@ class UserView extends Component
     { 
         $this->authorize('user-list');
 
-        $this->user = User::orderBy('id', 'desc')->get();
+        $this->user = User::orderBy('id', 'asc')->get();
 
         $this->selectedUser = new User();
     }
@@ -35,6 +36,13 @@ class UserView extends Component
 
     public function destroy($id)
     {
+        $oldData=[];
+        $oldData['user']=User::where('id', $id)->first()->email;
+
+        $newData=[];
+        $newData['user']='';
+
+        AuditService::AuditLog($oldData,$newData,auth()->user()->id,'user','delete');
         User::where('id', $id)->delete();
 
         return redirect()->route('users')

@@ -9,6 +9,7 @@ use App\Models\Department;
 use DB;
 use Hash;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class UserEdit extends Component
 {
@@ -67,6 +68,29 @@ class UserEdit extends Component
             'selectedrole' => 'required',
             'selecteddep' => 'required',
         ]);
+
+        $oldData = [];
+        $newData = [];
+
+        $oldData['email'] = $this->user->email;
+        $oldData['name'] = $this->user->name;
+        $oldData['phone'] = $this->user->phone;
+        $oldData['gender'] = $this->user->gender;
+        $oldData['password'] = '*****';
+        $oldData['department_name'] = Department::find($this->user->department_id)->name;
+        $oldData['role'] = Role::find(DB::table('model_has_roles')->where('model_id',$this->user->id)->first()->role_id)->name;
+        
+        
+        $newData['email'] = $validatedData['email'];
+        $newData['name'] = $validatedData['name'];
+        $newData['phone'] = $validatedData['phone'];
+        $newData['gender'] = $validatedData['selectedgender'];
+        $newData['password'] = '#####';
+        $newData['department_name'] = Department::find($validatedData['selecteddep'])->name;
+        $newData['role'] = Role::find(DB::table('model_has_roles')->where('model_id',$validatedData['selectedrole'])->first()->role_id)->name;
+        
+
+        AuditService::AuditLog($oldData,$newData,auth()->user()->id,'user','edit');
          
         $this->user->email = $validatedData['email'];
         $this->user->name = $validatedData['name'];

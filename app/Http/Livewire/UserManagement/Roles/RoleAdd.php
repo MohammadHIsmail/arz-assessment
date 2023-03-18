@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Services\AuditService;
 
 
 class RoleAdd extends Component
@@ -86,14 +87,20 @@ class RoleAdd extends Component
             'name' => 'required|unique:roles,name',
             'selectedPermission' => 'required'
         ]);
-
+        
+        $newData = [];
+        $newData['role'] = $validatedData['name'];
         foreach($validatedData['selectedPermission'] as $key => $value)
         {
             if($value == false)
             {
                 unset($validatedData['selectedPermission'][$key]); 
+            }else{
+                $newData[$key] = Permission::find($key)->name;
             }
         }
+
+        AuditService::AuditLog([],$newData,auth()->user()->id,'role','add');
         
         $role = Role::create(['name' => $validatedData['name']]);
         $role->syncPermissions(array_keys($validatedData['selectedPermission']));

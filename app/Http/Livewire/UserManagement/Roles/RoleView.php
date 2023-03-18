@@ -8,6 +8,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class RoleView extends Component
 {
@@ -28,6 +29,13 @@ class RoleView extends Component
     
     public function destroy($id)
     {
+        $oldData=[];
+        $oldData['role']=Role::where('id', $id)->first()->name;
+
+        $newData=[];
+        $newData['role']='';
+
+        AuditService::AuditLog($oldData,$newData,auth()->user()->id,'role','delete');
         Role::where('id', $id)->delete();
         
         return redirect()->route('roles')

@@ -7,7 +7,9 @@ use Spatie\Permission\Models\Role;
 use App\Models\User;
 use App\Models\Department;
 use Hash;
+Use DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class UserAdd extends Component
 {
@@ -44,7 +46,7 @@ class UserAdd extends Component
     public function store()
     {
         $validatedData = $this->validate([
-            'email' => 'required|unique:users',
+            'email' => 'required|unique:users|email',
             'password' => 'required|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'required|required_with:password|same:password',
             'name' => 'required',
@@ -53,6 +55,16 @@ class UserAdd extends Component
             'selectedrole' => 'required',
             'selecteddep' => 'required',
         ]);
+
+        $newData['email']=$validatedData['email'];
+        $newData['password']='*****';
+        $newData['name']=$validatedData['name'];
+        $newData['phone']=$validatedData['phone'];
+        $newData['selectedgender']=$this->genders[$validatedData['selectedgender']];
+        $newData['selecteddep']=Department::find($validatedData['selecteddep'])->name;
+        $newData['selectedrole']=Role::find(DB::table('model_has_roles')->where('model_id',$validatedData['selectedrole'])->first()->role_id)->name;
+
+        AuditService::AuditLog([],$newData,auth()->user()->id,'user','add');
 
         $user = new User();
         $user->email = $validatedData['email'];

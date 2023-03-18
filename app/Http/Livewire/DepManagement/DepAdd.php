@@ -5,6 +5,7 @@ namespace App\Http\Livewire\DepManagement;
 use Livewire\Component;
 use App\Models\Department;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\AuditService;
 
 class DepAdd extends Component
 {
@@ -23,6 +24,10 @@ class DepAdd extends Component
         $validatedData = $this->validate([
             'name' => 'required|unique:departments',
         ]);
+
+        $newData['name']=$validatedData['name'];
+
+        AuditService::AuditLog([],$newData,auth()->user()->id,'department','add');
 
         $department = new Department();
         $department->name = $validatedData['name'];

@@ -66,11 +66,13 @@ class UserProfile extends Component
         $oldData['name'] = $this->user->name;
         $oldData['phone'] = $this->user->phone;
         $oldData['gender'] = $this->user->gender;
+        $oldData['password'] = '*****';
         
         $newData['email'] = $validatedData['email'];
         $newData['name'] = $validatedData['name'];
         $newData['phone'] = $validatedData['phone'];
         $newData['gender'] = $validatedData['selectedgender'];
+        $newData['password'] = '#####';
 
         AuditService::AuditLog($oldData,$newData,auth()->user()->id,'user','edit');
          
