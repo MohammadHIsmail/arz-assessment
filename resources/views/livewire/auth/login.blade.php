@@ -4,6 +4,9 @@
             <div class="row d-flex align-items-center mt-5 ml-0 justify-content-between">
                 <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                     <div class="card card-plain">
+                        <div class="card-header">
+                        <img src="../assets/img/logo.png" class="w-100" alt="...">
+                        </div>
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="email">{{ __('Email') }}</label>
@@ -24,7 +27,7 @@
                             </div>
                             <div class="text-center">
                                 <button wire:click="login()" type="submit"
-                                    class="btn bg-gradient w-100 mt-4 mb-0">{{ __('Sign in') }}</button>
+                                    class="btn bg-gradient-primary w-100 mt-4 mb-0">{{ __('Sign in') }}</button>
                             </div>
                         </div>
                     </div>
