@@ -6,7 +6,6 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('dashboard') }}">
             <img src="../assets/img/logo.png" class="navbar-brand-img h-100" alt="...">
-            <span class="ms-3 font-weight-bold">Bloodbath and Beyond</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0 w-75 ml-2">

@@ -1,12 +1,10 @@
 function confirmDelete(id) {
     swal.fire({
-        title: 'Are you sure?',
-        text: 'This action cannot be undone!',
-        icon: 'warning',
+        title: 'Confirm Delete?',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: '#025c3e',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Confirm'
     }).then((result) => {
         if (result.isConfirmed) {   
             Livewire.emit('destroy',id);

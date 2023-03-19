@@ -15,7 +15,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between">Edit user
                     <span class="float-right mt-3">
                         <span class="d-flex align-items-center gap-4">
-                            <a class="btn btn-primary" href="{{ route('users') }}">Users</a>
+                            <a class="btn bg-gradient-primary" href="{{ route('users') }}">Users</a>
                         </span>
                     </span>
                 </div>

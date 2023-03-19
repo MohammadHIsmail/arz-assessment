@@ -15,7 +15,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between">Edit department
                     <span class="float-right mt-3">
                         <span class="d-flex align-items-center gap-4">
-                            <a class="btn btn-primary" href="{{ route('departments') }}">Departments</a>
+                            <a class="btn bg-gradient-primary" href="{{ route('departments') }}">Departments</a>
                         </span>
                     </span>
                 </div>

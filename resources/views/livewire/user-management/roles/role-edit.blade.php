@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center justify-content-between">Edit role
                     <span class="float-right mt-2">
-                        <a class="btn btn-primary" href="{{ route('roles') }}">Roles</a>
+                        <a class="btn bg-gradient-primary" href="{{ route('roles') }}">Roles</a>
                     </span>
                 </div>
                 <div class="card-body">

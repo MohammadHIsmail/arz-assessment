@@ -13,8 +13,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <table id="dtable" class="table align-items-center mb-0">
+                    <div class="card-body px-0 pt-0 pb-2" style="overflow-x: auto;">
+                        <table class="table align-items-center mb-0" >
                             <thead>
                                 <tr>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
